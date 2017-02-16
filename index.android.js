@@ -15,9 +15,9 @@ import {
 
 import * as d3 from 'd3';
 
-import BarChart from './js/BarChart';
-import PieChart from './js/PieChart';
-import BarChart2 from './js/BarChart2';
+import BarChart from './js/charts/BarChart';
+import PieChart from './js/charts/PieChart';
+import BarChart2 from './js/charts/BarChart2';
 
 export default class Testing extends Component {
   render() {
