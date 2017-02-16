@@ -54,34 +54,3 @@ export default class BarChart extends Component {
         );
     }
 }
-
-export class PieChart extends Component {
-
-    render() {
-
-        var width = 320;
-        var height = 240;
-
-        var piedata = [
-            {"number":  8, "name": 'Fun activities'},
-            {"number": 7, "name": 'Dog'},
-            {"number": 16, "name": 'Food'},
-            {"number": 23, "name": 'Car'},
-            {"number": 42, "name": 'Rent'},
-            {"number":  4, "name": 'Misc'},
-        ];
-
-        var arcs = shape.pie().value(function(d) { return d.number})(piedata);
-
-
-        return (
-            <View style={{justifyContent: 'center', flex: 1, alignItems: 'center'}}>
-                <Surface width={width} height={height} style={{fill: '#1214f1'}}>
-                    <Group x={0} y={0}>
-
-                    </Group>
-                </Surface>
-            </View>
-        );
-    }
-}

@@ -37,7 +37,7 @@ export default class PieChart extends Component {
             var path = shape.arc()
                 .outerRadius(radius - 10)
                 .padAngle(0.03)
-                .innerRadius(0)(arcs[i]);
+                .innerRadius(30)(arcs[i]);
 
             pieSlice.push(
                 <Shape

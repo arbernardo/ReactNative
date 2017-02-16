@@ -7,8 +7,9 @@ import { ART, View, Image, TextInput, Dimensions } from 'react-native';
 import * as scale from 'd3-scale';
 import * as ax from 'd3-axis';
 import * as shape from 'd3-shape';
-
 import * as d3 from 'd3';
+
+import Rectangle from './shapes/Rectangle';
 
 const {
     Group,
@@ -44,8 +45,6 @@ export default class BarChart extends Component {
         //     axes.push(xAxis(i));
         // });
 
-        console.log(a);
-
         var bars = [];
         data.forEach(function(d, i) {
             bars.push(<Rectangle x={scaleX(i)} y={height - scaleY(d)} width={barWidth} height={scaleY(d)} key={i} stroke="#000" fill="#1212a2"/>);
@@ -63,20 +62,3 @@ export default class BarChart extends Component {
     }
 }
 
-class Rectangle extends Component {
-
-    render() {
-        var x = this.props.x,
-            y = this.props.y,
-            width = parseFloat(this.props.width) + parseFloat(x),
-            height = parseFloat(this.props.height) + parseFloat(y),
-            stroke = this.props.stroke,
-            strokeWidth = this.props.strokeWidth;
-        fill = this.props.fill;
-
-        var path = "M" + x + " " + y + " H " + width + " V " + height + " H " + x + " L " + x + " " + y;
-        return (
-            <Shape d={path} stroke={stroke} strokeWidth={strokeWidth} fill={fill}/>
-        );
-    }
-}

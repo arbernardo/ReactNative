@@ -18,13 +18,34 @@ import * as d3 from 'd3';
 import BarChart from './js/BarChart';
 import PieChart from './js/PieChart';
 import BarChart2 from './js/BarChart2';
-import tsv from './resources/data.tsv';
 
 export default class Testing extends Component {
   render() {
 
     var data1 = [21, 43, 32, 7, 11, 14, 31, 11, 14, 31, 33];
-    var data2 = [44, 10, 51, 16, 24];
+    var data2 = [
+      {letter: 'A', frequency: 13},
+      {letter: 'B', frequency: 11},
+      {letter: 'C', frequency: 2},
+      {letter: 'D', frequency: 6},
+      {letter: 'E', frequency: 14},
+      {letter: 'F', frequency: 6},
+      {letter: 'G', frequency: 20},
+      {letter: 'H', frequency: 7},
+      {letter: 'I', frequency: 12},
+      {letter: 'J', frequency: 3},
+      {letter: 'K', frequency: 17},
+      {letter: 'L', frequency: 21},
+      {letter: 'M', frequency: 3},
+      {letter: 'N', frequency: 21},
+      {letter: 'O', frequency: 33},
+      {letter: 'P', frequency: 18},
+      {letter: 'Q', frequency: 41},
+      {letter: 'R', frequency: 34},
+      {letter: 'S', frequency: 12},
+      {letter: 'T', frequency: 18},
+      {letter: 'U', frequency: 22},
+    ];
     var piedata = [
       {"number":  8, "name": 'Fun activities'},
       {"number": 7, "name": 'Dog'},
@@ -34,18 +55,10 @@ export default class Testing extends Component {
       {"number":  4, "name": 'Misc'},
     ];
 
-    var bar2Data;
-
-    // d3.tsv(file, function(d){return d.frequency;}, function(error, data){
-    //   console.log(data);
-    // });
-
-    // console.log(file);
-
     return (
       <View style={styles.container}>
-        <BarChart data={data1}/>
-        {/*<PieChart data={piedata}/>*/}
+        {/*<BarChart data={data1}/>*/}
+        <PieChart data={piedata}/>
         <BarChart2 width={320} height={240} data={data2}/>
       </View>
     );
