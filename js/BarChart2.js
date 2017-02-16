@@ -36,7 +36,7 @@ export default class BarChart2 extends Component {
 
         var yAxis = axes.axisLeft(yScale);//.ticks(10);
         console.log(yAxis.scale().ticks());
-        var arr = yAxis.scale().ticks(5);
+        var arr = yAxis.scale().ticks(8);
 
 
 
@@ -71,7 +71,7 @@ export default class BarChart2 extends Component {
             ticksY.push(
                 <Text
                     key={i}
-                    x={0 - margin.right}
+                    x={0 - 5}
                     y={yScale(d) - 9}
                     font={{fontFamily:"Arial", fontSize:12}}
                     fill="#000000"
