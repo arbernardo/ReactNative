@@ -1,64 +1,139 @@
 /**
- * Created by ace on 2/15/17.
+ * Created by Ace on 2/15/2017.
  */
-import React, { Component } from 'react';
-import { ART, View, Image, TextInput, Dimensions } from 'react-native';
+import React, {Component} from 'react';
+import {ART, View} from 'react-native';
 
 import * as scale from 'd3-scale';
-import * as ax from 'd3-axis';
 import * as shape from 'd3-shape';
+import * as axes from 'd3-axis';
 import * as d3 from 'd3';
 
 import Rectangle from './shapes/Rectangle';
+import Line from './shapes/Line';
 
 const {
     Group,
     Shape,
     Surface,
     Text,
+    Transform,
+    Path,
 } = ART;
 
-export default class BarChart extends Component {
+export default class BarChart2 extends Component {
 
     constructor(props) {
-        super(props);
+        super(props)
+
+
+
         this.state = {
-            data: this.props.data,
+            transition: []
         }
+
+    }
+
+    componentWillReceiveProps(nextProps) {
+        // console.log("aaaa");
     }
 
     render() {
-        var data = this.state.data;
 
-        var width = 320;
-        var height = 240;
-        var padding = 5;
-        var barWidth = (width/data.length) - padding;
-        const scaleX = scale.scaleLinear().domain([0, data.length]).range([0, width]);
-        const scaleY = scale.scaleLinear().domain([0, d3.max(data)]).range([0, height]);
+        var data = this.props.data;
+        var xProperty = this.props.x_name;
+        var yProperty = this.props.y_name;
 
-        var a = ax.axisBottom(scaleX).ticks(data.length);
-        // var xAxis = axis().scale(scaleX).orientation('bottom').ticks(data.length);//d3.axisBottom(scaleX).ticks(data.length);
+        var margin = {top: 20, right: 20, bottom: 30, left: 40},
+            width = this.props.width - margin.left - margin.right,
+            height = this.props.height - margin.top - margin.bottom;
 
-        // var axes = [];
-        // data.forEach(function(d, i) {
-        //     axes.push(xAxis(i));
-        // });
+        var xScale = scale.scaleBand().rangeRound([0, width]).padding(0.3).domain(data.map(function(d) {return d[xProperty];})),
+            yScale = scale.scaleLinear().rangeRound([height, 0]).domain([0, d3.max(data, function(d) { return d[yProperty];})]);
+
+        var color = scale.scaleLinear().domain([0, d3.max(data, function(d) {return d[yProperty]})]).range(["#FFB832", "#FF0000"]);
+
+        //Y-Axis
+        var yAxis = axes.axisLeft(yScale);
+        var arr = yAxis.scale().ticks(6);
+
 
         var bars = [];
+        var ticksX = [];
+        var ticksY = [];
         data.forEach(function(d, i) {
-            bars.push(<Rectangle x={scaleX(i)} y={height - scaleY(d)} width={barWidth} height={scaleY(d)} key={i} stroke="#000" fill="#1212a2"/>);
+            bars.push(
+                <Group key={"barG" + i}>
+                    <Rectangle
+                        key={"bar" + i}
+                        x={xScale(d[xProperty])}
+                        y={yScale(d[yProperty])}
+                        width={xScale.bandwidth()}
+                        height={height-yScale(d[yProperty])}
+                        stroke={color(d[yProperty])}
+                        fill={color(d[yProperty])}
+                    />
+                    <Text
+                        key={"barLabel" + i}
+                        x={xScale(d[xProperty]) + xScale.bandwidth()/2}
+                        y={yScale(d[yProperty]) - (xScale.bandwidth() > 12 ? 12 : xScale.bandwidth())}
+                        font={{fontFamily:"Arial", fontSize: xScale.bandwidth() > 12 ? 12 : xScale.bandwidth()}}
+                        fill="#000000"
+                        alignment="center"
+                    >
+                        {d[yProperty].toString()}
+                    </Text>
+                    <Text
+                        key={"xLabel" + i}
+                        x={xScale(d[xProperty]) + xScale.bandwidth()/2}
+                        y={height}
+                        font={{fontFamily:"Arial", fontSize:xScale.bandwidth() > 12 ? 12 : xScale.bandwidth()}}
+                        fill="#000000"
+                        alignment="center"
+                    >
+                        {d[xProperty].toString()}
+                    </Text>
+                </Group>
+            );
+        });
+
+        arr.forEach(function(d, i) {
+            ticksY.push(
+                <Group key={"g" + i}>
+                    <Text
+                        key={"text" + i}
+                        x={0 - 10}
+                        y={yScale(d) - 8}
+                        font={{fontFamily:"Arial", fontSize:12}}
+                        fill="#000000"
+                        alignment="center"
+                    >
+                        {d.toString()}
+                    </Text>
+                    <Line
+                        key={"shape" + i}
+                        strokeWidth={1}
+                        stroke={"#000"}
+                        x1={0} y1={yScale(d)}
+                        x2={5} y2={yScale(d)}
+                    />
+                </Group>
+            );
         });
 
         return (
-            <View style={{justifyContent: 'center', flex: 1, alignItems: 'center'}}>
-                <Surface width={width} height={height} >
-                    <Group x={0} y={0}>
-                        {bars}
-                    </Group>
-                </Surface>
-            </View>
+          <View style={{justifyContent: "center", flex:1, alignItems: "center", backgroundColor: "#a3a2a1"}}>
+              <Surface width={this.props.width} height={this.props.height}>
+                  <Group transform={new Transform().translate(margin.left, margin.top)}>
+                      {bars}
+                      {ticksX}
+                      {ticksY}
+                      <Line stroke={"#000"} strokeWidth={1} x1={0} y1={0} x2={0} y2={height + 4} />
+                      <Line stroke={"#000"} strokeWidth={1} x1={0} y1={height} x2={width} y2={height}/>
+                  </Group>
+
+              </Surface>
+          </View>
         );
     }
 }
-

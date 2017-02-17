@@ -2,7 +2,7 @@
  * Created by ace on 2/15/17.
  */
 import React, { Component } from 'react';
-import { ART, View, Image, TextInput, Dimensions } from 'react-native';
+import { ART, View, Text } from 'react-native';
 
 import * as shape from 'd3-shape';
 import * as scale from 'd3-scale';
@@ -13,7 +13,6 @@ const {
     Group,
     Shape,
     Surface,
-    Text,
     Transform,
 } = ART;
 
@@ -22,10 +21,10 @@ export default class PieChart extends Component {
     render() {
 
         var piedata = this.props.data;
-        var width = 320;
-        var height = 240;
+        var width = this.props.width;
+        var height = this.props.height;
         var radius = Math.min(width, height) / 2;
-        var color = scale.scaleOrdinal().range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+        var color = scale.scaleOrdinal().range(["#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6", "#dd4477"]);
 
         var arcs = shape.pie().value(function(d) { return d.number})(piedata);
         var labelArc = d3.arc().outerRadius(radius - 40).innerRadius(radius - 40);
@@ -51,7 +50,7 @@ export default class PieChart extends Component {
 
             var xy = labelArc.centroid(arcs[i]);
             texts.push(
-                <Text
+                <ART.Text
                     key={i}
                     transform={new Transform().translate(xy[0], xy[1])}
                     font={{fontFamily: "Arial", fontSize:8}}
@@ -59,19 +58,25 @@ export default class PieChart extends Component {
                     alignment = "center"
                 >
                     {piedata[i].name}
-                </Text>
+                </ART.Text>
             );
         });
 
 
         return (
-            <View style={{justifyContent: "center", flex: 1, alignItems: "center", backgroundColor: "#AAAAAA"}}>
-                <Surface width={width} height={height} >
-                    <Group x={width/2} y={height/2}>
-                        {pieSlice}
-                        {texts}
-                    </Group>
-                </Surface>
+            <View style={{flex:1,  flexDirection:"row"}}>
+                <View style={{height:height, backgroundColor:"white",}}>
+                    <Surface width={width} height={height} >
+                        <Group x={width/2} y={height/2}>
+                            {pieSlice}
+                            {texts}
+                        </Group>
+                    </Surface>
+                </View>
+
+                <View>
+                    <Text>"HAHAHA"</Text>
+                </View>
             </View>
         );
     }

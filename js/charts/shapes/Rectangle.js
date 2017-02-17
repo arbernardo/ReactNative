@@ -15,14 +15,11 @@ export default class Rectangle extends Component {
         var x = this.props.x,
             y = this.props.y,
             width = parseFloat(this.props.width) + parseFloat(x),
-            height = parseFloat(this.props.height) + parseFloat(y),
-            stroke = this.props.stroke,
-            strokeWidth = this.props.strokeWidth;
-        fill = this.props.fill;
+            height = parseFloat(this.props.height) + parseFloat(y);
 
         var path = "M" + x + " " + y + " H " + width + " V " + height + " H " + x + " L " + x + " " + y;
         return (
-            <Shape d={path} stroke={stroke} strokeWidth={strokeWidth} fill={fill}/>
+            <Shape d={path} stroke={this.props.stroke} strokeWidth={this.props.strokeWidth} fill={this.props.fill}/>
         );
     }
 }
