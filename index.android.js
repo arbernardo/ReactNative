@@ -8,16 +8,20 @@ import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
-  Text,
-  View,
   Dimensions,
+    View,
 } from 'react-native';
 
 import PieChart from './js/charts/PieChart';
 import BarChart from './js/charts/BarChart';
+import ScrollBar from './js/TestMenu';
+import ControlPanel from './js/ControlPanel';
 
+import {Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Input, Text, Item } from 'native-base';
+import ScrollableTabView, {DefaultTabBar} from 'react-native-scrollable-tab-view';
 
 export default class Testing extends Component {
+
   render() {
 
     var data1 = [21, 43, 32, 7, 11, 14, 31, 11, 14, 31, 33];
@@ -63,13 +67,52 @@ export default class Testing extends Component {
       {"number":  4, "name": 'Misc'},
     ];
 
+    // return (
+    //     <ScrollableTabView
+    //         style={{marginTop: 20, }}
+    //         renderTabBar={() => <DefaultTabBar />}
+    //     >
+    //         <Text tabLabel='Tab #1'>My</Text>
+    //         <Text tabLabel='Tab #2'>favorite</Text>
+    //         <Text tabLabel='Tab #3'>project</Text>
+    //     </ScrollableTabView>
+    // );
+
     return (
-      <View style={styles.container}>
-        <PieChart data={piedata} width={240} height={240}/>
-        <View style={{flex:1}}>
-          <BarChart width={320} height={240} data={data2} x_name={"letter"} y_name={"frequency"}/>
-        </View>
-      </View>
+        <Container>
+          <Header searchBar rounded>
+            <Left>
+              <Button transparent>
+                <Icon name='menu' />
+              </Button>
+            </Left>
+            <Body>
+              <Title>Sample App</Title>
+            </Body>
+            <Right/>
+          </Header>
+
+          <Content>
+              <ScrollableTabView
+                  style={{marginTop: 20, }}
+                  renderTabBar={() => <DefaultTabBar />}
+              >
+                  <PieChart tabLabel='PieChart' data={piedata} width={240} height={240}/>
+                  <BarChart tabLabel='BarChart' width={320} height={240} data={data2} x_name={"letter"} y_name={"frequency"}/>
+                  <Text tabLabel='Tab #3'>project</Text>
+                  <Text tabLabel="HAHA" />
+              </ScrollableTabView>
+          </Content>
+
+          <Footer>
+            <FooterTab>
+              <Button full>
+                <Text>WebbFontaine</Text>
+              </Button>
+            </FooterTab>
+          </Footer>
+
+        </Container>
     );
   }
 }
@@ -95,5 +138,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
+
+//js.coach
 
 AppRegistry.registerComponent('Testing', () => Testing);
