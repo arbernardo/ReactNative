@@ -19,8 +19,16 @@ import ControlPanel from './js/ControlPanel';
 
 import {Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Input, Text, Item } from 'native-base';
 import ScrollableTabView, {DefaultTabBar} from 'react-native-scrollable-tab-view';
+import {Drawer} from 'react-native-drawer';
 
 export default class Testing extends Component {
+
+  closeDrawer = () => {
+    this._drawer._root.close()
+  };
+  openDrawer = () => {
+    this._drawer._root.open()
+  };
 
   render() {
 
@@ -67,13 +75,6 @@ export default class Testing extends Component {
       {"number":  4, "name": 'Misc'},
     ];
 
-    closeDrawer = () => {
-      this._drawer._root.close()
-    };
-    openDrawer = () => {
-      this._drawer._root.open()
-    };
-
     return (
         <Container>
           <Header searchBar rounded>
@@ -89,13 +90,7 @@ export default class Testing extends Component {
           </Header>
 
           <Content>
-            <Drawer
-                ref={(ref) => { this._drawer = ref; }}
-                content={<SideBar navigator={this._navigator} />}
-                onClose={() => this.closeDrawer()}
-            >
-              <Text>aaaaaaa</Text>
-            </Drawer>
+
               <ScrollableTabView
                   style={{marginTop: 20, }}
                   renderTabBar={() => <DefaultTabBar />}
