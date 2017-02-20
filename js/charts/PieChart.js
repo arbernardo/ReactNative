@@ -2,10 +2,11 @@
  * Created by ace on 2/15/17.
  */
 import React, { Component } from 'react';
-import { ART, View, Text } from 'react-native';
+import { ART, View, Text, TouchableWithoutFeedback, } from 'react-native';
 
 import * as shape from 'd3-shape';
 import * as scale from 'd3-scale';
+import Color from './theme/Color';
 
 import * as d3 from 'd3';
 
@@ -18,66 +19,135 @@ const {
 
 export default class PieChart extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {highlightedIndex : 0}
+    }
+
+    getValue(item){
+        return item["number"];
+    }
+
+    getLabel(item) {
+        return item["name"];
+    }
+
+    createPie(index) {
+        var arcs = shape.pie().value(function(d) { return d["number"]})(this.props.data);
+
+        var arc = shape.arc()
+            .outerRadius((this.props.width - 40) / 2)
+            .padAngle(0.03)
+            .innerRadius(30)(arcs[index]);
+
+        var highlightedArc = shape.arc()
+            .outerRadius(this.props.width/2)
+            .padAngle(0.03)
+            .innerRadius(30)(arcs[index]);
+
+        var path = (this.state.highlightedIndex == index) ? highlightedArc : arc;
+        return path;
+    }
+
+    getColor(index) {
+        return Color.colors[index];
+    }
+
+    onSelectedItem(index) {
+        console.log(this.props.data[index]);
+        this.setState({highlightedIndex: index});
+    }
+
     render() {
 
         var piedata = this.props.data;
         var width = this.props.width;
         var height = this.props.height;
-        var radius = Math.min(width, height) / 2;
-        var color = scale.scaleOrdinal().range(["#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6", "#dd4477"]);
-
-        var arcs = shape.pie().value(function(d) { return d.number})(piedata);
-        var labelArc = d3.arc().outerRadius(radius - 40).innerRadius(radius - 40);
-
-        var pieSlice = [];
-        var texts = [];
-
-        arcs.forEach(function (d, i) {
-            var path = shape.arc()
-                .outerRadius(radius - 10)
-                .padAngle(0.03)
-                .innerRadius(30)(arcs[i]);
-
-            pieSlice.push(
-                <Shape
-                    key={i}
-                    d={path}
-                    strokeWidth={1}
-                    stroke={"#FFF"}
-                    fill={color(i)}
-                />
-            );
-
-            var xy = labelArc.centroid(arcs[i]);
-            texts.push(
-                <ART.Text
-                    key={i}
-                    transform={new Transform().translate(xy[0], xy[1])}
-                    font={{fontFamily: "Arial", fontSize:8}}
-                    fill = "#000000"
-                    alignment = "center"
-                >
-                    {piedata[i].name}
-                </ART.Text>
-            );
-        });
-
 
         return (
-            <View style={{flex:1,  flexDirection:"row"}}>
-                <View style={{height:height, backgroundColor:"white",}}>
+            <View style={{flex:1,  flexDirection:"row", backgroundColor:"white"}}>
+                <View style={{flex: 1, height:height, alignItems: "center"}}>
                     <Surface width={width} height={height} >
                         <Group x={width/2} y={height/2}>
-                            {pieSlice}
-                            {texts}
+                            {
+                                piedata.map((item, index) => {
+                                return (
+                                    <Shape
+                                        key={"pie" + index}
+                                        d={this.createPie(index)}
+                                        strokeWidth={1}
+                                        stroke={"#000000"}
+                                        fill={this.getColor(index)}
+                                    />);
+                                })
+                            }
                         </Group>
                     </Surface>
                 </View>
 
-                <View>
-                    <Text>"HAHAHA"</Text>
+                <View style={{flexDirection: "column", top: 20, right: 10, }}>
+                    {
+                        piedata.map((item, index) => {
+                            var textUnderline = this.state.highlightedIndex == index ? 'underline' : 'none';
+
+                            return (
+                                <TouchableWithoutFeedback key={index} onPress={() => this.onSelectedItem(index)}>
+                                    <View style={{backgroundColor: "rgba(0,0,0, 0.3)", padding: 5}}>
+                                        <Text style={{color:Color.colors[index], textDecorationLine: textUnderline}}>{this.getLabel(item)}: {this.getValue(item)}</Text>
+                                    </View>
+                                </TouchableWithoutFeedback>
+                            );
+                        })
+                    }
                 </View>
             </View>
+        );
+    }
+}
+
+class AnimatedPie extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {path: ''}
+    }
+    componentWillMount() {
+        this.computeNextState(this.props);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.computeNextState(nextProps);
+    }
+
+    computeNextState(nextProps) {
+        const {
+            d,
+        } = nextProps;
+
+        const graph = this.props.d();
+
+        this.setState({
+            path: graph
+        });
+
+        if (!this.previousGraph) {
+            this.previousGraph = graph;
+        }
+
+        if (this.props !== nextProps) {
+            const pathFrom = this.previousGraph;
+            // const
+        }
+    }
+
+    render() {
+        const path = this.state.path;
+
+        return (
+            <Shape
+                d={path}
+                stroke={this.props.color}
+                fill={this.props.color}
+            />
         );
     }
 }

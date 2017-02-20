@@ -90,3 +90,43 @@
 //
 // export default rn_morph;
 // AppRegistry.registerComponent('rn_morph', () => rn_morph);
+
+// arcs.forEach(function (d, i) {
+//
+//
+//     pieSlice.push(
+//         <Shape
+//             key={i}
+//             d={path}
+//             strokeWidth={1}
+//             stroke={"#FFF"}
+//             fill={color(i)}
+//         />
+//     );
+//
+//     var xy = labelArc.centroid(arcs[i]);
+//     texts.push(
+//         <ART.Text
+//             key={i}
+//             transform={new Transform().translate(xy[0], xy[1])}
+//             font={{fontFamily: "Arial", fontSize:8}}
+//             fill = "#000000"
+//             alignment = "center"
+//         >
+//             {piedata[i].name}
+//         </ART.Text>
+//     );
+// });
+
+// var a = this.props.data.map((item, index) => (
+//     <Shape
+//         key={"pie" + index}
+//         d={() => this.createPie(index)}
+//         strokeWidth={1}
+//         stroke={"#000000"}
+//         fill={"#1212f1"}
+//     />)
+// );
+// console.log(a);
+
+// var labelArc = d3.arc().outerRadius(radius - 40).innerRadius(radius - 40);

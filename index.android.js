@@ -67,16 +67,12 @@ export default class Testing extends Component {
       {"number":  4, "name": 'Misc'},
     ];
 
-    // return (
-    //     <ScrollableTabView
-    //         style={{marginTop: 20, }}
-    //         renderTabBar={() => <DefaultTabBar />}
-    //     >
-    //         <Text tabLabel='Tab #1'>My</Text>
-    //         <Text tabLabel='Tab #2'>favorite</Text>
-    //         <Text tabLabel='Tab #3'>project</Text>
-    //     </ScrollableTabView>
-    // );
+    closeDrawer = () => {
+      this._drawer._root.close()
+    };
+    openDrawer = () => {
+      this._drawer._root.open()
+    };
 
     return (
         <Container>
@@ -93,14 +89,20 @@ export default class Testing extends Component {
           </Header>
 
           <Content>
+            <Drawer
+                ref={(ref) => { this._drawer = ref; }}
+                content={<SideBar navigator={this._navigator} />}
+                onClose={() => this.closeDrawer()}
+            >
+              <Text>aaaaaaa</Text>
+            </Drawer>
               <ScrollableTabView
                   style={{marginTop: 20, }}
                   renderTabBar={() => <DefaultTabBar />}
               >
-                  <PieChart tabLabel='PieChart' data={piedata} width={240} height={240}/>
+                  <PieChart tabLabel='PieChart' data={piedata} width={220} height={220}/>
                   <BarChart tabLabel='BarChart' width={320} height={240} data={data2} x_name={"letter"} y_name={"frequency"}/>
                   <Text tabLabel='Tab #3'>project</Text>
-                  <Text tabLabel="HAHA" />
               </ScrollableTabView>
           </Content>
 
