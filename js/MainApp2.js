@@ -1,83 +1,57 @@
-/**
- * Created by Ace on 2/20/2017.
- */
 import React, {Component} from 'react';
-import {View, TouchableWithoutFeedback, Text } from 'react-native';
-import {SideMenu, List, ListItem} from 'react-native-elements';
-
+import {View, Text, StyleSheet} from 'react-native';
+import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon }  from 'native-base';
+import MainApp from './MainApp';
+import {SearchBar} from 'react-native-elements';
+import RecentDocuments from './components/RecentDocuments';
 
 export default class MainApp2 extends Component {
 
-    constructor(props){
-        super(props);
-        this.state = {
-            isOpen: false
-        }
-        // this.toggleSideMenu = this.toggleSideMenu.bind(this);
-    }
-
-    toggleSideMenu(){
-        this.setState({
-            isOpen: !this.state.isOpen
-        });
-    }
-
     render() {
-        var list = [
-            {avatar_url: 'haha', name: 'Ace', subtitle: 'trylang'},
-            {avatar_url: 'hehe', name: 'Michelle', subtitle: 'tryagain'},
-            {avatar_url: 'hihi', name: 'Alvin', subtitle: 'tryulit'},
-        ];
 
-        // const MenuComponent = (
-        //   <View style={{flex: 1, backgroundColor: '#ededed', paddingTop: 50}}>
-        //       <List containerStyle={{marginBottom:20}} >
-        //           {
-        //               list.map((data, index) => (
-        //                   <ListItem
-        //                     onPress={() => console.log('Pressed')}
-        //                     key={index}
-        //                     title={data.name}
-        //                     subtitle={data.subtitle}
-        //                   />
-        //               ))
-        //           }
-        //       </List>
-        //   </View>
-        // );
-        //
-        const Menu = (
-            <View style={{flex:1, backgroundColor: '#ededed', marginTop: 40}}>
-                <Text>lol</Text>
-            </View>
-        );
-
-        console.log(this.state.isOpen);
-        return (
-
-            <SideMenu
-                menu={Menu}
-                isOpen={false}
-                menuPosition={"right"}
-            >
-
-                {/*<App toggleSideMenu={() => this.toggleSideMenu()} />*/}
-            </SideMenu>
-        );
-    }
-}
-class App extends Component {
-
-    render(){
 
         return (
-            <View style={{flex:1}}>
-                <TouchableWithoutFeedback>
-                    <View>
-                        <Text onPress={this.props.toggleSideMenu}>Click Me!</Text>
+            <Container>
+                <Header>
+                    <Left>
+                        <Button transparent>
+                            <Icon name='menu' />
+                        </Button>
+                    </Left>
+                    <Body>
+                    <Title>WFG App</Title>
+                    </Body>
+                    <Right />
+                </Header>
+
+                <Content>
+                    <View style={{padding: 10}}>
+                        <View style={{padding: 10}}>
+                            <SearchBar
+                                placeholder="Search Document"
+                                round
+                                containerStyle={styles.searchBar}
+                                inputStyle={styles.searchInput}
+                            />
+                        </View>
+                        <RecentDocuments/>
                     </View>
-                </TouchableWithoutFeedback>
-            </View>
+                </Content>
+            </Container>
         );
     }
 }
+
+
+const styles = StyleSheet.create({
+   searchBar: {
+       backgroundColor: "rgba(0,0,0,0)",
+       backfaceVisibility: "hidden",
+       borderTopWidth: 0,
+       borderBottomWidth: 0
+   },
+    searchInput: {
+       backgroundColor: "rgba(0,100,255, .1)",
+    }
+});
+

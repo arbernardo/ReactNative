@@ -11,13 +11,14 @@ import {
 } from 'react-native';
 
 import MainApp from './js/MainApp';
+import MainApp2 from './js/MainApp2';
 
 
 export default class Testing extends Component {
 
   render() {
     return (
-        <MainApp />
+        <MainApp2 />
     );
   }
 }

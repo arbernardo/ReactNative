@@ -14,32 +14,20 @@ export default class RecentDocuments extends Component {
 
 
         return (
-            <View style={styles.searchBarView}>
-                <SearchBar
-                    containerStyle={styles.searchBar}
-                    placeholder="Search Document"
-                    lightTheme
-                    noIcon={true}
-                />
-                <View style={styles.content}>
-                    <DocumentCard/>
-                    <DocumentCard/>
-                    <DocumentCard/>
-                </View>
+            <View style={styles.recentDocuments}>
+                <Text>Recent Documents: </Text>
+                <DocumentCard/>
+                <DocumentCard/>
+                <DocumentCard/>
+                <DocumentCard/>
+                <DocumentCard/>
             </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
-
-    searchBarView: {
-        marginTop: 40,
-    },
-    searchBar : {
-        backgroundColor: "rgba(0,0,0,0)"
-    },
-    content: {
-        padding: 0,
+    recentDocuments: {
+        padding: 10,
     }
 });

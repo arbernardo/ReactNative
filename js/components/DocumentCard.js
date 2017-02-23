@@ -3,7 +3,7 @@
  */
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
-import {Card} from 'react-native-elements';
+import {Card, Button} from 'react-native-elements';
 
 export default class DocumentCard extends Component {
 
@@ -17,10 +17,9 @@ export default class DocumentCard extends Component {
                 <View style={styles.cardHeader}>
                     <Image style={styles.imageHeader} source={{uri: logo}}  />
                     <Text style={styles.textHeader}>Document {randomText}</Text>
-                </View>
-                <View style={styles.content}>
-                    <Text style={styles.contentText}>Office Code: ABC</Text>
-                    <Text style={styles.contentText}>Office Name: DEF</Text>
+                    <View style={styles.statusView}>
+                        <Text style={styles.statusText}> ASSESSED </Text>
+                    </View>
                 </View>
                 <View style={styles.cardFooter}>
                     <Text style={styles.textFooter}>{new Date().toTimeString()}</Text>
@@ -32,7 +31,10 @@ export default class DocumentCard extends Component {
 
 const styles = StyleSheet.create({
     containerStyle : {
-
+        marginTop:5,
+        padding: 10,
+        borderRightColor: "rgba(0,0,0,0)",
+        borderWidth: 0,
     },
     cardHeader :{
         padding: 0,
@@ -47,16 +49,25 @@ const styles = StyleSheet.create({
         fontWeight: "bold"
     },
     content: {
-        marginTop: 5,
-        marginLeft: 12,
+        marginTop: 2,
+        marginLeft: 30,
     },
     contentText:{
-        fontSize: 10,
+        fontSize: 9,
     },
     cardFooter: {
+        marginTop: 5,
         alignItems: "flex-end",
     },
     textFooter: {
         fontSize: 8,
+    },
+    statusView: {
+        flex:1,
+        alignItems: "flex-end",
+        justifyContent: "flex-end"
+    },
+    statusText: {
+        backgroundColor: "#ceeb11"
     }
 });
