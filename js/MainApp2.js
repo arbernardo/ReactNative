@@ -46,18 +46,19 @@ export default class MainApp2 extends Component {
         //   </View>
         // );
         //
-        // const Menu = (
-        //     <View style={{flex:1, backgroundColor: '#ededed', marginTop: 40}}>
-        //         <Text>lol</Text>
-        //     </View>
-        // );
+        const Menu = (
+            <View style={{flex:1, backgroundColor: '#ededed', marginTop: 40}}>
+                <Text>lol</Text>
+            </View>
+        );
 
         console.log(this.state.isOpen);
         return (
 
             <SideMenu
-                menu={(<Text>haha</Text>)}
+                menu={Menu}
                 isOpen={false}
+                menuPosition={"right"}
             >
 
                 {/*<App toggleSideMenu={() => this.toggleSideMenu()} />*/}

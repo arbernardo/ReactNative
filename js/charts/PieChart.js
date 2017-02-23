@@ -22,6 +22,7 @@ export default class PieChart extends Component {
     constructor(props) {
         super(props);
         this.state = {highlightedIndex : 0}
+        this.getValue = this.getValue.bind(this);
     }
 
     getValue(item){
