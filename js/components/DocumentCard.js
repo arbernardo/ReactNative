@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRightColor: "rgba(0,0,0,0)",
         borderWidth: 0,
+        // backgroundColor: "rgba(206, 235, 17, .3)"
     },
     cardHeader :{
         padding: 0,

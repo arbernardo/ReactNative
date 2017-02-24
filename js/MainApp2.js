@@ -26,7 +26,7 @@ export default class MainApp2 extends Component {
 
                 <Content>
                     <View style={{padding: 10}}>
-                        <View style={{padding: 10}}>
+                        <View style={{padding: 16}}>
                             <SearchBar
                                 placeholder="Search Document"
                                 round

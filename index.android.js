@@ -12,13 +12,15 @@ import {
 
 import MainApp from './js/MainApp';
 import MainApp2 from './js/MainApp2';
+import SearchModule from './js/components/SearchModule';
+import AppSideMenu from './js/components/AppSideMenu';
 
 
 export default class Testing extends Component {
 
   render() {
     return (
-        <MainApp2 />
+        <AppSideMenu />
     );
   }
 }
