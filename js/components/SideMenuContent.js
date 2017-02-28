@@ -38,6 +38,8 @@ export default class SideMenuContent extends Component {
             uri: 'http://www.vurtur.com/images/photo.jpg'
         };
 
+        console.log("refs",this.refs);
+
         return (
             <View style={styles.container}>
                 <ThemeProvider uiTheme={uiTheme}>
@@ -67,7 +69,7 @@ export default class SideMenuContent extends Component {
                             title="Charts"
                             divider
                             items={[
-                                {icon: 'pie-chart', value: 'Pie Chart', onPress: () => {}},
+                                {icon: 'pie-chart', value: 'Pie Chart', onPress: () => {this.props.navigator.push({name: "PieChart"})}},
                                 {icon: 'insert-chart', value: 'Bar Chart', onPress: () => {}},
                                 {icon: 'timeline', value: 'Line Chart', onPress: () => {}},
                             ]}
