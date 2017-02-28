@@ -7,20 +7,16 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
-    View,
 } from 'react-native';
 
-import MainApp from './js/MainApp';
-import MainApp2 from './js/MainApp2';
-import SearchModule from './js/components/SearchModule';
-import AppSideMenu from './js/components/AppSideMenu';
+import App from './js/components/App';
 
 
 export default class Testing extends Component {
 
   render() {
     return (
-        <AppSideMenu />
+        <App />
     );
   }
 }

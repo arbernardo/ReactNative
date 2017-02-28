@@ -31,11 +31,8 @@ export default class MainToolbar extends Component {
                     <Toolbar
                         onLeftElementPress={this.props.openDrawer}
                         leftElement="menu"
-                        centerElement="WFG App"
-                        searchable={{
-                            autoFocus: true,
-                            placeholder: 'Search',
-                        }}
+                        centerElement={this.props.title}
+                        searchable={this.props.searchable}
                     />
                 </ThemeProvider>
             </View>

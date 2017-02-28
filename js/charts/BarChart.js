@@ -26,16 +26,10 @@ export default class BarChart2 extends Component {
     constructor(props) {
         super(props)
 
-
-
         this.state = {
             transition: []
         }
 
-    }
-
-    componentWillReceiveProps(nextProps) {
-        // console.log("aaaa");
     }
 
     render() {
@@ -56,7 +50,6 @@ export default class BarChart2 extends Component {
         //Y-Axis
         var yAxis = axes.axisLeft(yScale);
         var arr = yAxis.scale().ticks(6);
-
 
         var bars = [];
         var ticksX = [];
@@ -122,7 +115,7 @@ export default class BarChart2 extends Component {
         });
 
         return (
-          <View style={{justifyContent: "center", flex:1, alignItems: "center", backgroundColor: "#a3a2a1"}}>
+          <View style={{flex:1}}>
               <Surface width={this.props.width} height={this.props.height}>
                   <Group transform={new Transform().translate(margin.left, margin.top)}>
                       {bars}

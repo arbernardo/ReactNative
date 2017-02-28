@@ -39,6 +39,7 @@ export default class SideMenuContent extends Component {
         };
 
         console.log("refs",this.refs);
+        console.log("drawer", this.props.drawer);
 
         return (
             <View style={styles.container}>
@@ -60,6 +61,7 @@ export default class SideMenuContent extends Component {
                         <Drawer.Section
                             divider
                             items={[
+                                { icon: 'home', value: 'Home', onPress:() => {this.props.closeDrawer("Main")} },
                                 { icon: 'bookmark-border', value: 'Notifications', onPress:() => {} },
                                 { icon: 'today', value: 'Calendar', onPress: () => {}},
                                 { icon: 'people', value: 'Clients', onPress: () => {}},
@@ -69,8 +71,8 @@ export default class SideMenuContent extends Component {
                             title="Charts"
                             divider
                             items={[
-                                {icon: 'pie-chart', value: 'Pie Chart', onPress: () => {this.props.navigator.push({name: "PieChart"})}},
-                                {icon: 'insert-chart', value: 'Bar Chart', onPress: () => {}},
+                                {icon: 'pie-chart', value: 'Pie Chart', onPress: () => {this.props.closeDrawer("PieChart");}},
+                                {icon: 'insert-chart', value: 'Bar Chart', onPress: () => {this.props.closeDrawer("BarChart")}},
                                 {icon: 'timeline', value: 'Line Chart', onPress: () => {}},
                             ]}
                         />

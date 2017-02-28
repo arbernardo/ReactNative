@@ -66,7 +66,7 @@ export default class PieChart extends Component {
         var height = this.props.height;
 
         return (
-            <View style={{flex:1,  flexDirection:"row", backgroundColor:"white"}}>
+            <View style={{flex:1,  flexDirection:"row",}}>
                 <View style={{flex: 1, height:height, alignItems: "center"}}>
                     <Surface width={width} height={height} >
                         <Group x={width/2} y={height/2}>
